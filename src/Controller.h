@@ -20,10 +20,6 @@ private:
 	bool CheakCollision(AbstractEntity::GeomParam shape1, AbstractEntity::GeomParam shape2);
 
 private:
-
-
-
-	std::list<std::shared_ptr<AbstractEntity>> _delete;
 	std::list<std::shared_ptr<AbstractEntity>> _ourBullet;
 	std::list<std::shared_ptr<AbstractEntity>> _enemes;
 	Player _player;

@@ -18,25 +18,59 @@ void Controller::Update()
 	}
 
 	// Проверка коллизии
-	for (auto iter = _enemes.begin(); iter != _enemes.end(); iter++)
-	{
-		if (CheakCollision(_player.GetGeom(), (*iter)->GetGeom()))
-		{
-			(*iter)->ReduceHealth();
-			_player.ReduceHealth();
-		}
-
-		if ((*iter)->IsDeleted())
-		{
-			_delete.insert(_delete.begin(), (*iter));
-			_enemes.erase(iter);
-		}
-	}
+	CheakCollisions();
 }
 
 void Controller::CheakCollisions()
 {
+	for (auto ourBulletIter = _ourBullet.begin(); ourBulletIter != _ourBullet.end(); ourBulletIter++)
+	{
+		for (auto enemesIter = _enemes.begin(); enemesIter != _enemes.end(); enemesIter++)
+		{
+			if (CheakCollision((*ourBulletIter)->GetGeom(), (*enemesIter)->GetGeom()))
+			{
+				(*enemesIter)->ReduceHealth();
+				if ((*enemesIter)->IsDeleted())
+				{
+					auto tempIter = enemesIter;
+					enemesIter--; // TODO: исправить логику 
+					_enemes.erase(tempIter);
+				}
 
+				(*ourBulletIter)->ReduceHealth();
+				if ((*ourBulletIter)->IsDeleted())
+				{
+					auto tempIter = enemesIter;
+					enemesIter--; // TODO: исправить логику 
+					_ourBullet.erase(tempIter);
+					break;
+				}
+			}
+		}
+	}
+
+
+	for (auto enemesIter = _enemes.begin(); enemesIter != _enemes.end(); enemesIter++)
+	{
+		if (CheakCollision(_player.GetGeom(), (*enemesIter)->GetGeom()))
+		{
+			(*enemesIter)->ReduceHealth();
+			if ((*enemesIter)->IsDeleted())
+			{
+				auto tempIter = enemesIter;
+				enemesIter--;
+				_enemes.erase(tempIter);
+			}
+
+			//_player->ReduceHealth();
+			//if ((*ourBulletIter)->IsDeleted())
+			//{
+				///
+				/// 
+				/// 
+			//}
+		}
+	}
 }
 
 bool Controller::CheakCollision(AbstractEntity::GeomParam shape1, AbstractEntity::GeomParam shape2)

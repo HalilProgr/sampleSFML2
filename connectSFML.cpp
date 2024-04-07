@@ -52,23 +52,6 @@ int main()
 
             if (event.type == sf::Event::KeyPressed)
             {
-
-                sf::Vector2f offcet(0, 0);
-
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)
-                    || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-                        offcet.x += 5;
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)
-                    || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-                        offcet.x -= 5;
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
-                    || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-                        offcet.y -= 5;
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)
-                    || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-                        offcet.y += 5;
-
-                shape.move(offcet);
             }
         }
 
